@@ -20,6 +20,7 @@ EOD
 ok( close( $handle ),"Close script #1: $!" );
 
 ok( open( my $stdin,"| $^X -I$INC[-1] script 2>2" ),"Run script #1: $!" );
+sleep 2;
 chomp( my $error = slurp 2 );
 is( $error,"Add __END__ to end of script 'script'","Error message #1" );
 ok( !close( $stdin ),"Close pipe #1: $!" );
