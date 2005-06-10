@@ -13,6 +13,7 @@ sub slurp ($) { open( my $handle,$_[0] ); local $/; <$handle> }
 
 ok( open( my $handle,'>script' ),"Create script #1: $!" );
 print $handle <<'EOD';
+$| = 1;
 use Sys::RunAlone;
 <>;
 EOD
@@ -25,6 +26,7 @@ ok( !close( $stdin ),"Close pipe #1: $!" );
 
 ok( open( $handle,'>script' ),"Create script #2: $!" );
 print $handle <<'EOD';
+$| = 1;
 use Sys::RunAlone;
 <>;
 __END__
@@ -32,10 +34,12 @@ EOD
 ok( close( $handle ),"Close script #2: $!" );
 
 ok( open( my $stdin1,"| $^X -I$INC[-1] script 2>2" ),"Run script #2: $!" );
+sleep 2;
 chomp( my $error1 = slurp 2 );
 is( $error1,"","Error message #2" );
 
 ok( open( my $stdin2,"| $^X -I$INC[-1] script 2>2" ),"Run script #2: $!" );
+sleep 2;
 chomp( my $error2 = slurp 2 );
 is( $error2,"A copy of 'script' is already running","Error message #2a" );
 ok( !close( $stdin2 ),"Close pipe #2a: $!" );

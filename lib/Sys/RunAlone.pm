@@ -4,7 +4,7 @@ package Sys::RunAlone;
 # Make sure we're strict
 # Make sure we know how to lock
 
-$VERSION = '0.01';
+$VERSION = '0.02';
 use strict;
 use Fcntl ':flock';
 

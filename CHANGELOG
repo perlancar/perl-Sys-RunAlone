@@ -1,2 +1,5 @@
+0.02	10 June 2005
+	Hopefully fixed problem with race conditions in the test-suite
+
 0.01    9 June 2005
 	First public version of Sys/RunAlone.pm.
