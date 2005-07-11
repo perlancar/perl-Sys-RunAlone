@@ -1,3 +1,6 @@
+0.04	11 July 2005
+	Some pod fixes.  Added link to Sys::RunAlways.
+
 0.03	10 June 2005
 	Oops. Still one more race condition to fix in test-suite
 

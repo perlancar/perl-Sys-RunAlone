@@ -4,7 +4,7 @@ package Sys::RunAlone;
 # Make sure we're strict
 # Make sure we know how to lock
 
-$VERSION = '0.03';
+$VERSION = '0.04';
 use strict;
 use Fcntl ':flock';
 
@@ -60,7 +60,7 @@ in the "main" namespace).
 At INIT time, it is checked whethere there is a DATA handle: if not, it
 exits with an error message on STDERR and an exit value of 2.
 
-If the DATA handle is available, and it cannot be C<flock>ed, it exists
+If the DATA handle is available, and it cannot be C<flock>ed, it exits
 with an error message on STDERR and an exit value of 1.
 
 If there is a DATA handle, and it could be C<flock>ed, execution continues
@@ -80,6 +80,10 @@ the specified script name.  This could be considered a bug or a feature.
 
 Inspired by Randal Schwartz's mention of using the DATA handle as a semaphore
 on the London PM mailing list.
+
+=head1 SEE ALSO
+
+L<Sys::RunAlways>.
 
 =head1 AUTHOR
 
