@@ -2,7 +2,6 @@ MANIFEST
 CHANGELOG
 README
 TODO
-VERSION
 Makefile.PL
 lib/Sys/RunAlone.pm
 t/RunAlone.t

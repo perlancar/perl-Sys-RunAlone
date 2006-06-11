@@ -6,13 +6,13 @@ BEGIN {				# Magic Perl CORE pragma
     }
 }
 
-use Test::More tests => 14;
+use Test::More tests => 17;
 use strict;
 use warnings;
 sub slurp ($) { open( my $handle,$_[0] ); local $/; <$handle> }
 
 ok( open( my $handle,'>script' ),"Create script #1: $!" );
-print $handle <<'EOD';
+ok( print( $handle <<'EOD' ),"Print script #1: $!" );
 $| = 1;
 use Sys::RunAlone;
 <>;
@@ -26,7 +26,7 @@ is( $error,"Add __END__ to end of script 'script'","Error message #1" );
 ok( !close( $stdin ),"Close pipe #1: $!" );
 
 ok( open( $handle,'>script' ),"Create script #2: $!" );
-print $handle <<'EOD';
+ok( print( $handle <<'EOD' ),"Print script #2: $!" );
 $| = 1;
 use Sys::RunAlone;
 <>;
@@ -45,7 +45,8 @@ chomp( my $error2 = slurp 2 );
 is( $error2,"A copy of 'script' is already running","Error message #2a" );
 ok( !close( $stdin2 ),"Close pipe #2a: $!" );
 
-print $stdin1 $/;
+ok( print( $stdin1 $/ ),"Print pipe #2: $!" );
 ok( close( $stdin1 ),"Close pipe #2: $!" );
 
 is( 2,unlink( qw(script 2) ),"Cleanup" );
+1 while unlink qw(script 2);
