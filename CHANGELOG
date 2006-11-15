@@ -1,3 +1,7 @@
+0.06	15 November 2006
+	Brought up to BPB standards.  Made the error message if no DATA handle
+	found, hopefully more understandable.
+
 0.05	11 June 2006
 	Added caveat of scripts being edited.
 

@@ -1,15 +1,16 @@
 package Sys::RunAlone;
 
-# Set version
-# Make sure we're strict
-# Make sure we know how to lock
+# version info
+$VERSION = '0.06';
 
-$VERSION = '0.05';
+# make sure we're strict and verbose as possible
 use strict;
+use warnings;
+
+# make sure we know how to lock
 use Fcntl ':flock';
 
-# Satisfy -require-
-
+# satisfy -require-
 1;
 
 #---------------------------------------------------------------------------
@@ -18,13 +19,13 @@ use Fcntl ':flock';
 #
 #---------------------------------------------------------------------------
 
-# Run this when we start executing
-#  Let the world know if there's no DATA handle and quit
-#  Let the world know if the script is already running and quit
-
 INIT {
-    print( STDERR "Add __END__ to end of script '$0'\n" ),exit 2
+
+    # no data handle, we'r screwed
+    print( STDERR "Add __END__ to end of script '$0' to be able use the features of Sys::RunALone\n" ),exit 2
      if tell( *main::DATA ) == -1;
+
+    # we're not alone!
     print( STDERR "A copy of '$0' is already running\n"), exit 1
      unless flock main::DATA,LOCK_EX | LOCK_NB;
 } #INIT
@@ -46,6 +47,10 @@ Sys::RunAlone - make sure only one invocation of a script is active at a time
 
 Provide a simple way to make sure the script from which this module is
 loaded, is only running once on the server.
+
+=head1 VERSION
+
+This documentation describes version 0.06.
 
 =head1 METHODS
 
