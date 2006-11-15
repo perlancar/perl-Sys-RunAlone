@@ -1,3 +1,7 @@
+0.07	15 November 2006
+	Why did testing just go ok and wrong now?  Argh, must be too late.
+	Fix for warning and test error.
+
 0.06	15 November 2006
 	Brought up to BPB standards.  Made the error message if no DATA handle
 	found, hopefully more understandable.

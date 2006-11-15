@@ -1,7 +1,7 @@
 package Sys::RunAlone;
 
 # version info
-$VERSION = '0.06';
+$VERSION = '0.07';
 
 # make sure we're strict and verbose as possible
 use strict;
@@ -20,6 +20,8 @@ use Fcntl ':flock';
 #---------------------------------------------------------------------------
 
 INIT {
+    # no warnings here
+    no warnings;
 
     # no data handle, we'r screwed
     print( STDERR "Add __END__ to end of script '$0' to be able use the features of Sys::RunALone\n" ),exit 2
@@ -50,7 +52,7 @@ loaded, is only running once on the server.
 
 =head1 VERSION
 
-This documentation describes version 0.06.
+This documentation describes version 0.07.
 
 =head1 METHODS
 
