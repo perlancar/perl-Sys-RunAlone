@@ -1,7 +1,7 @@
 package Sys::RunAlone;
 
 # version info
-$VERSION = '0.07';
+$VERSION = '0.08';
 
 # make sure we're strict and verbose as possible
 use strict;
@@ -20,16 +20,26 @@ use Fcntl ':flock';
 #---------------------------------------------------------------------------
 
 INIT {
-    # no warnings here
     no warnings;
 
-    # no data handle, we'r screwed
-    print( STDERR "Add __END__ to end of script '$0' to be able use the features of Sys::RunALone\n" ),exit 2
-     if tell( *main::DATA ) == -1;
+    # skipping
+    if ( my $skip = $ENV{SKIP_SYS_RUNALONE} ) {
+        print STDERR "Skipping " . __PACKAGE__ . " check for '$0'\n"
+          if $skip > 1;
+    }
+
+    # no data handle, we're screwed
+    elsif ( tell( *main::DATA ) == -1 ) {
+        print STDERR "Add __END__ to end of script '$0'"
+          . " to be able use the features of Sys::RunALone\n";
+        exit 2;
+    }
 
     # we're not alone!
-    print( STDERR "A copy of '$0' is already running\n"), exit 1
-     unless flock main::DATA,LOCK_EX | LOCK_NB;
+    elsif ( !flock main::DATA, LOCK_EX | LOCK_NB ) {
+        print STDERR "A copy of '$0' is already running\n";
+        exit 1;
+    }
 } #INIT
 
 #---------------------------------------------------------------------------
@@ -52,7 +62,7 @@ loaded, is only running once on the server.
 
 =head1 VERSION
 
-This documentation describes version 0.07.
+This documentation describes version 0.08.
 
 =head1 METHODS
 
@@ -72,6 +82,23 @@ with an error message on STDERR and an exit value of 1.
 
 If there is a DATA handle, and it could be C<flock>ed, execution continues
 without any further interference.
+
+=head1 OVERRIDING CHECK
+
+In some cases, the same script may need to be run simultaneously with another
+incarnation (but possibly with different parameters).  In order to simplify
+this type of usage, it is possible to specify the environment variable
+C<SKIP_SYS_RUNALONE> with a true value.
+
+ SKIP_SYS_RUNALONE=1 yourscript.pl
+
+will run the script always.
+
+ SKIP_SYS_RUNALONE=2 yourscript.pl
+
+will actually be verbose about this and say:
+
+ Skipping Sys::RunAlone check for 'yourscript.pl'
 
 =head1 REQUIRED MODULES
 
@@ -111,7 +138,7 @@ L<Sys::RunAlways>.
 
 =head1 COPYRIGHT
 
-Copyright (c) 2005 - 2006 Elizabeth Mattijsen <liz@dijkmat.nl>. All rights
+Copyright (c) 2005, 2006, 2008 Elizabeth Mattijsen <liz@dijkmat.nl>. All rights
 reserved.  This program is free software; you can redistribute it and/or
 modify it under the same terms as Perl itself.
 
