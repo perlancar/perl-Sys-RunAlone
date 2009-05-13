@@ -1,7 +1,7 @@
 package Sys::RunAlone;
 
 # version info
-$VERSION = '0.08';
+$VERSION = '0.09';
 
 # make sure we're strict and verbose as possible
 use strict;
@@ -10,14 +10,25 @@ use warnings;
 # make sure we know how to lock
 use Fcntl ':flock';
 
+# silent flag
+my $silent;
+
 # satisfy -require-
 1;
 
-#---------------------------------------------------------------------------
+#-------------------------------------------------------------------------------
 #
 # Standard Perl functionality
 #
-#---------------------------------------------------------------------------
+#-------------------------------------------------------------------------------
+# import
+#
+#  IN: 1 class (not used)
+#      2 option (default: none)
+
+sub import { $silent= 1 if $_[1] and $_[1] eq 'silent' } #import
+
+#-------------------------------------------------------------------------------
 
 INIT {
     no warnings;
@@ -25,7 +36,7 @@ INIT {
     # skipping
     if ( my $skip = $ENV{SKIP_SYS_RUNALONE} ) {
         print STDERR "Skipping " . __PACKAGE__ . " check for '$0'\n"
-          if $skip > 1;
+          if !$silent and $skip > 1;
     }
 
     # no data handle, we're screwed
@@ -37,12 +48,12 @@ INIT {
 
     # we're not alone!
     elsif ( !flock main::DATA, LOCK_EX | LOCK_NB ) {
-        print STDERR "A copy of '$0' is already running\n";
+        print STDERR "A copy of '$0' is already running\n" if !$silent;
         exit 1;
     }
 } #INIT
 
-#---------------------------------------------------------------------------
+#-------------------------------------------------------------------------------
 
 __END__
 
@@ -55,6 +66,9 @@ Sys::RunAlone - make sure only one invocation of a script is active at a time
  use Sys::RunAlone;
  # code of which there may only be on instance running on system
 
+ use Sys::RunAlone 'silent';
+ # be silent if other running instance detected
+
 =head1 DESCRIPTION
 
 Provide a simple way to make sure the script from which this module is
@@ -62,7 +76,7 @@ loaded, is only running once on the server.
 
 =head1 VERSION
 
-This documentation describes version 0.08.
+This documentation describes version 0.09.
 
 =head1 METHODS
 
@@ -78,7 +92,8 @@ At INIT time, it is checked whethere there is a DATA handle: if not, it
 exits with an error message on STDERR and an exit value of 2.
 
 If the DATA handle is available, and it cannot be C<flock>ed, it exits
-with an error message on STDERR and an exit value of 1.
+with an error message on STDERR and an exit value of 1.  The error message
+will be surpressed when C<'silent'> was specified in the C<use> statement.
 
 If there is a DATA handle, and it could be C<flock>ed, execution continues
 without any further interference.
@@ -138,8 +153,8 @@ L<Sys::RunAlways>.
 
 =head1 COPYRIGHT
 
-Copyright (c) 2005, 2006, 2008 Elizabeth Mattijsen <liz@dijkmat.nl>. All rights
-reserved.  This program is free software; you can redistribute it and/or
-modify it under the same terms as Perl itself.
+Copyright (c) 2005, 2006, 2008, 2009 Elizabeth Mattijsen <liz@dijkmat.nl>.
+All rights reserved.  This program is free software; you can redistribute it
+and/or modify it under the same terms as Perl itself.
 
 =cut

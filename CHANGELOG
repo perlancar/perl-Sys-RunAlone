@@ -1,3 +1,7 @@
+0.09	13 May 2009
+	Added "silent" option so that a script can indicate whether or not it
+	wants to tell the world whether it saw a previous incarnation running.
+
 0.08	25 March 2008
 	Given up after almost a week getting the test to complete without
 	errors.  Added two TODO sections: manual testing indicates that

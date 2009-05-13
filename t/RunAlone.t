@@ -6,7 +6,7 @@ BEGIN {				# Magic Perl CORE pragma
     }
 }
 
-use Test::More tests => 28;
+use Test::More tests => 34;
 use strict;
 use warnings;
 sub slurp ($) { open( my $handle,$_[0] ); local $/; <$handle> }
@@ -14,24 +14,28 @@ sub slurp ($) { open( my $handle,$_[0] ); local $/; <$handle> }
 ok( open( my $handle,'>script' ),"Create script #1: $!" );
 ok( print( $handle <<'EOD' ),"Print script #1: $!" );
 $| = 1;
-use Sys::RunAlone;
+use Sys::RunAlone @ARGV;
 <>;
 EOD
 ok( close( $handle ),"Close script #1: $!" );
 
-my $ok = 0;
-my $command = "| $^X -I$INC[-1] script 2>2";
-$ok++ if ok( open( my $stdin, $command ),"Run script #1: $!" );
-sleep 2;
-chomp( my $error = slurp 2 );
-$ok++ if is( $error,"Add __END__ to end of script 'script' to be able use the features of Sys::RunALone","Error message #1" );
-$ok++ if ok( !close( $stdin ),"Close pipe #1: $!" );
-diag($command) if $ok != 3;
+my $ok;
+my $command;
+foreach ( "", "'silent'" ) {
+    my $ok = 0;
+    my $command = "| $^X -I$INC[-1] script $_ 2>2";
+    $ok++ if ok( open( my $stdin, $command ),"Run script #1: $!" );
+    sleep 2;
+    chomp( my $error = slurp 2 );
+    $ok++ if is( $error,"Add __END__ to end of script 'script' to be able use the features of Sys::RunALone","Error message #1" );
+    $ok++ if ok( !close( $stdin ),"Close pipe #1: $!" );
+    diag($command) if $ok != 3;
+}
 
 ok( open( $handle,'>script' ),"Create script #2: $!" );
 ok( print( $handle <<'EOD' ),"Print script #2: $!" );
 $| = 1;
-use Sys::RunAlone;
+use Sys::RunAlone @ARGV;
 <>;
 __END__
 EOD
@@ -46,12 +50,20 @@ $ok++ if is( $error1,"","Error message #2" );
 diag($command) if $ok != 2;
 
 $ok = 0;
-$command = "| $^X -I$INC[-1] script 2>2";
 $ok++ if ok( open( my $stdin2, $command ), "Run script #2 again: $!" );
 sleep 2;
 chomp( my $error2 = slurp 2 );
 $ok++ if is( $error2,"A copy of 'script' is already running","Error message #2a" );
 $ok++ if ok( !close( $stdin2 ),"Close pipe #2a: $!" );
+diag($command) if $ok != 3;
+
+$ok = 0;
+$command = "| $^X -I$INC[-1] script 'silent' 2>2";
+$ok++ if ok( open( my $stdin2a, $command ), "Run script #2 again: $!" );
+sleep 2;
+chomp( my $error2a = slurp 2 );
+$ok++ if is( $error2a,"","Error message #2aa" );
+$ok++ if ok( !close( $stdin2a ),"Close pipe #2aa: $!" );
 diag($command) if $ok != 3;
 
 $ok = 0;
