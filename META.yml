@@ -1,11 +1,14 @@
-# http://module-build.sourceforge.net/META-spec.html
-#XXXXXXX This is a prototype!!!  It will change in the future!!! XXXXX#
-name:         Sys-RunAlone
-version:      0.09
-version_from: lib/Sys/RunAlone.pm
-installdirs:  site
-requires:
+--- #YAML:1.0
+name:                Sys-RunAlone
+version:             0.10
+abstract:            make sure only one invocation of a script is active at a time
+license:             ~
+author:              
+    - Elizabeth Mattijsen (liz@dijkmat.nl)
+generated_by:        ExtUtils::MakeMaker version 6.42
+distribution_type:   module
+requires:     
     Fcntl:                         0
-
-distribution_type: module
-generated_by: ExtUtils::MakeMaker version 6.30
+meta-spec:
+    url:     http://module-build.sourceforge.net/META-spec-v1.3.html
+    version: 1.3

@@ -1,3 +1,7 @@
+0.10	10 May 2011
+	Added "retry" functionality for often called cronjobs that may exceed
+	their allotted wallclock time occasionally.
+
 0.09	13 May 2009
 	Added "silent" option so that a script can indicate whether or not it
 	wants to tell the world whether it saw a previous incarnation running.
