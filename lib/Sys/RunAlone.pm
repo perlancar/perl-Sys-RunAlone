@@ -1,7 +1,7 @@
 package Sys::RunAlone;
 
 # version info
-$VERSION = '0.10';
+$VERSION= '0.11';
 
 # make sure we're strict and verbose as possible
 use strict;
@@ -31,16 +31,16 @@ sub import {
     shift;
 
     # support obsolete form of silencing
-    $silent = 1, return if @_ == 1 and $_[0] and $_[0] eq 'silent';
+    $silent= 1, return if @_ == 1 and $_[0] and $_[0] eq 'silent';
 
     # huh?
     die "Must specify even number of parameters" if ( @_ & 1 ) == 1;
 
     # obtain parameters
-    my %args = @_;
-    $silent = delete $args{silent};
-    $retry  = delete $args{retry};
-    $retry  = $ENV{RETRY_SYS_RUNALONE} if exists $ENV{RETRY_SYS_RUNALONE};
+    my %args= @_;
+    $silent= delete $args{silent};
+    $retry=  delete $args{retry};
+    $retry=  $ENV{RETRY_SYS_RUNALONE} if exists $ENV{RETRY_SYS_RUNALONE};
 
     # sanity check
     if ( my @huh= sort keys %args ) {
@@ -56,7 +56,7 @@ INIT {
     no warnings;
 
     # skipping
-    if ( my $skip = $ENV{SKIP_SYS_RUNALONE} ) {
+    if ( my $skip= $ENV{SKIP_SYS_RUNALONE} ) {
         print STDERR "Skipping " . __PACKAGE__ . " check for '$0'\n"
           if !$silent and $skip > 1;
     }
@@ -124,7 +124,7 @@ execution until the other instance of the script has finished.
 
 =head1 VERSION
 
-This documentation describes version 0.10.
+This documentation describes version 0.11.
 
 =head1 METHODS
 
@@ -234,8 +234,8 @@ L<Sys::RunAlways>.
 
 =head1 COPYRIGHT
 
-Copyright (c) 2005, 2006, 2008, 2009, 2011 Elizabeth Mattijsen <liz@dijkmat.nl>.
-All rights reserved.  This program is free software; you can redistribute it
-and/or modify it under the same terms as Perl itself.
+Copyright (c) 2005, 2006, 2008, 2009, 2011, 2012 Elizabeth Mattijsen
+<liz@dijkmat.nl>.  All rights reserved.  This program is free software;
+you can redistribute it and/or modify it under the same terms as Perl itself.
 
 =cut
