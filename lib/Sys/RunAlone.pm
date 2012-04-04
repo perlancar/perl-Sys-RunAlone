@@ -1,7 +1,7 @@
 package Sys::RunAlone;
 
 # version info
-$VERSION= '0.11';
+$VERSION= '0.12';
 
 # make sure we're strict and verbose as possible
 use strict;
@@ -124,7 +124,7 @@ execution until the other instance of the script has finished.
 
 =head1 VERSION
 
-This documentation describes version 0.11.
+This documentation describes version 0.12.
 
 =head1 METHODS
 

@@ -23,7 +23,7 @@ ok( close( $handle ),"Close script #1: $!" );
 # check fault reporting
 my $ok;
 my $command;
-foreach ( "", "'silent'", "'silent' 1", "'retry' 5" ) {
+foreach ( "", '"silent"', '"silent" 1', '"retry" 5' ) {
     my $ok = 0;
     my $command = "| $^X -I$INC[-1] script $_ 2>2";
     $ok++ if ok( open( my $stdin, $command ),"Run script #1: $!" );
@@ -54,7 +54,7 @@ $ok++ if is( $error1,"","Error message #2" );
 diag($command) if $ok != 2;
 
 # check normal operation for 2nd run
-foreach ( "", "'retry' 2", "'retry' '2,1'" ) {
+foreach ( "", '"retry" 2', '"retry" "2,1"' ) {
     $ok = 0;
     $command = "| $^X -I$INC[-1] script $_ 2>2";
     $ok++ if ok( open( my $stdin2, $command ), "Run script #2 again: $!" );
@@ -66,7 +66,7 @@ foreach ( "", "'retry' 2", "'retry' '2,1'" ) {
 }
 
 # check silent operation for silent 2nd run
-foreach ( "'silent'", "'silent' 1" ) {
+foreach ( '"silent"', '"silent" 1' ) {
     $ok = 0;
     $command = "| $^X -I$INC[-1] script $_ 2>2";
     $ok++ if ok( open( my $stdin2a, $command ), "Run script #2 again silently: $!" );
