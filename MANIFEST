@@ -1,8 +1,0 @@
-MANIFEST
-CHANGELOG
-README
-Makefile.PL
-lib/Sys/RunAlone.pm
-t/RunAlone.t
-META.yml                                 Module YAML meta-data (added by MakeMaker)
-META.json                                Module JSON meta-data (added by MakeMaker)

@@ -94,11 +94,9 @@ INIT {
 
 #-------------------------------------------------------------------------------
 
+# ABSTRACT: make sure only one invocation of a script is active at a time
+
 __END__
-
-=head1 NAME
-
-Sys::RunAlone - make sure only one invocation of a script is active at a time
 
 =head1 SYNOPSIS
 
@@ -122,10 +120,6 @@ Sys::RunAlone - make sure only one invocation of a script is active at a time
 Provide a simple way to make sure the script from which this module is
 loaded, is only running once on the server.  Optionally allow for retrying
 execution until the other instance of the script has finished.
-
-=head1 VERSION
-
-This documentation describes version 0.12.
 
 =head1 METHODS
 
@@ -230,11 +224,7 @@ this module.
 
 L<Sys::RunAlways>.
 
-=head1 AUTHOR
-
- Elizabeth Mattijsen
-
-=head1 COPYRIGHT
+=head1 append:COPYRIGHT AND LICENSE
 
 Copyright (c) 2005, 2006, 2008, 2009, 2011, 2012 Elizabeth Mattijsen
 <liz@dijkmat.nl>.  Copyright (c) 2017 Ben Tilly <btilly@gmail.com>.  All
