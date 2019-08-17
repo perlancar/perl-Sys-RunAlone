@@ -1,52 +1,77 @@
 0.13	2017-09-21  Released-By: BTILLY
-	- Allow silence to be passed by environment variable.
-	  Add new maintainer.
+
+	- Allow silence to be passed by environment variable. Add new
+	  maintainer.
+
 
 0.12	2012-04-04  Released-By: ELIZABETH
-	- Change in the test-suite so that tests should also run ok on Windows
+
+        - Change in the test-suite so that tests should also run ok on Windows
 	  with Strawberry Perl.
 
+
 0.11	2012-04-01  Released-By: ELIZABETH
-	- Some code esthetics.  Verified it runs under 5.14.2, threaded and
+
+	- Some code esthetics. Verified it runs under 5.14.2, threaded and
 	  unthreaded.
 
+
 0.10	2011-05-10  Released-By: ELIZABETH
+
 	- Added "retry" functionality for often called cronjobs that may exceed
 	  their allotted wallclock time occasionally.
 
+
 0.09	2009-05-13  Released-By: ELIZABETH
+
 	- Added "silent" option so that a script can indicate whether or not it
 	  wants to tell the world whether it saw a previous incarnation running.
 
+
 0.08	2008-03-25  Released-By: ELIZABETH
+
 	- Given up after almost a week getting the test to complete without
-	  errors.  Added two TODO sections: manual testing indicates that
+	  errors. Added two TODO sections: manual testing indicates that
 	  everything seems to work as it should, so I guess it must be some
 	  test-suite artefact causing problems.
 
 	- Added support for SKIP_SYS_RUNALONE environment variable to skip the
-	  functionality altogether.  After a feature request by Rick Jansen.
-	  Made the code a little more adhering to PBP.
+	  functionality altogether. After a feature request by Rick Jansen. Made
+	  the code a little more adhering to PBP.
+
 
 0.07	2006-11-15  Released-By: ELIZABETH
-	- Why did testing just go ok and wrong now?  Argh, must be too late.
-	  Fix for warning and test error.
+
+	- Why did testing just go ok and wrong now? Argh, must be too late. Fix
+	  for warning and test error.
+
 
 0.06	2006-11-15  Released-By: ELIZABETH
-	- Brought up to BPB standards.  Made the error message if no DATA handle
+
+	- Brought up to BPB standards. Made the error message if no DATA handle
 	  found, hopefully more understandable.
 
+
 0.05	2006-06-11  Released-By: ELIZABETH
+
 	- Added caveat of scripts being edited.
 
+
 0.04	2005-07-11  Released-By: ELIZABETH
+
 	- Some pod fixes.  Added link to Sys::RunAlways.
 
+
 0.03	2005-06-10  Released-By: ELIZABETH
+
 	- Oops. Still one more race condition to fix in test-suite.
 
+
 0.02	2005-06-10  Released-By: ELIZABETH
+
 	- Hopefully fixed problem with race conditions in the test-suite.
 
+
 0.01    2005-06-09  Released-By: ELIZABETH
+
 	- First public version of Sys/RunAlone.pm.
